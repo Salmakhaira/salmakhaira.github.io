@@ -209,38 +209,41 @@
         .profile-card {
             background: var(--card-bg);
             border-radius: 1.5rem;
-            padding: 1.5rem;             
+            padding: 2rem;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 380px;
         }
-        
+
         .profile-image {
             width: 100%;
             aspect-ratio: 1;
-            background: var(--gradient-1);
             border-radius: 1rem;
-            margin-bottom: 1rem;         
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 6rem;              
-            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            position: relative;
+            border: 3px solid rgba(99, 102, 241, 0.3);
         }
-        
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .profile-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            gap: 0.5rem;
             margin-top: 1rem;
         }
 
         .tag {
             background: rgba(99, 102, 241, 0.2);
             color: var(--text-primary);
-            padding: 0.4rem 0.8rem;
+            padding: 0.5rem 1rem;
             border-radius: 2rem;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             border: 1px solid rgba(99, 102, 241, 0.3);
         }
 
@@ -542,15 +545,142 @@
             color: var(--text-secondary);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        /* Responsive - Improved Breakpoints */
+        
+        /* Large Tablet / Split Screen Laptop (1024px) */
+        @media (max-width: 1024px) {
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                gap: 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Medium Tablet / Split Screen (850px) */
+        @media (max-width: 850px) {
+            .hero-content {
+                gap: 2.5rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Small Tablet (700px) */
+        @media (max-width: 700px) {
             .hero-content {
                 grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-text {
                 text-align: center;
             }
 
             .hero-text h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .profile-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Mobile (600px and below) - Hide Navigation */
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Small Mobile (480px and below) */
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
             }
 
             .hero-stats {
@@ -561,12 +691,18 @@
                 flex-direction: column;
             }
 
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
             }
 
-            .nav-links {
-                display: none; /* Simple mobile approach */
+            .contact-links {
+                gap: 1rem;
+            }
+
+            .contact-item {
+                min-width: 120px;
+                padding: 1rem;
             }
         }
 
@@ -637,7 +773,7 @@
             <div class="hero-visual fade-in">
                 <div class="profile-card">
                     <div class="profile-image">
-                        <img src="Profile.jpg" alt="Salma Khaira Almuna" style="width: 100%; height: 100%; object-fit: cover; border-radius: 1rem;">
+                        <img src="Profile-2.jpg" alt="Salma Khaira Almuna">
                     </div>
                     <h3>Currently Working On</h3>
                     <p style="color: var(--text-secondary); margin-top: 0.5rem;">

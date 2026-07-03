@@ -340,6 +340,8 @@
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
@@ -359,6 +361,9 @@
 
         .project-content {
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
         .project-badge {
@@ -370,16 +375,23 @@
             font-size: 0.75rem;
             font-weight: 600;
             margin-bottom: 1rem;
+            align-self: flex-start;
         }
 
         .project-title {
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
-        .project-description {
+        /* problem / context line */
+        .project-problem {
             color: var(--text-secondary);
+            font-size: 0.95rem;
             margin-bottom: 1rem;
+        }
+        .project-problem .plabel {
+            color: var(--text-primary);
+            font-weight: 600;
         }
 
         .project-tech {
@@ -401,7 +413,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
-            margin: 1.5rem 0;
+            margin: 1.25rem 0;
             padding: 1rem;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 0.5rem;
@@ -422,28 +434,75 @@
             color: var(--text-secondary);
         }
 
-        .project-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
+        /* findings-first result block — the thing recruiters read without clicking */
+        .project-finding {
+            background: rgba(6, 182, 212, 0.08);
+            border-left: 3px solid var(--accent-color);
+            border-radius: 0 0.5rem 0.5rem 0;
+            padding: 0.85rem 1rem;
+            margin: 1.25rem 0 0;
+        }
+        .finding-label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+        .finding-text {
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            line-height: 1.55;
         }
 
-        .project-link {
+        /* CTA row: one prominent action + demoted external link(s) */
+        .project-links {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: auto;
+            padding-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .link-primary {
             flex: 1;
+            min-width: 150px;
             text-align: center;
-            padding: 0.75rem;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 0.8rem 1rem;
+            background: var(--gradient-1);
+            color: #fff;
             border-radius: 0.5rem;
-            color: var(--text-primary);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
         }
-
-        .project-link:hover {
-            background: rgba(99, 102, 241, 0.2);
+        .link-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        .link-secondary {
+            padding: 0.8rem 1rem;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+        .link-secondary:hover {
             border-color: var(--primary-color);
+            color: var(--text-primary);
         }
 
         /* Skills Section */
@@ -760,13 +819,13 @@
                 <h1>
                     Hi, I'm <span class="gradient-text">Salma Khaira Almuna</span>
                 </h1>
-                <p class="hero-subtitle">Data Scientist • Data Analyst • Business intelligence Analyst</p>
+                <p class="hero-subtitle">Data Scientist • Data Analyst • Business Intelligence Analyst</p>
                 <p class="hero-description">
-                    Last year Data Science student at BINUS University, with hands-on experience in dashboard development,
+                    Final-year Data Science student at BINUS University with hands-on experience in dashboard development,
                     KPI analytics, and business decision–support systems. Skilled in Python, SQL, and Power BI to automate
-                    data workflows and generate insights. Currently contributing to procurement analytics as data analyst intern
-                    at PT Tangkas Cipta Optimal (TACO) while completing a research project on NLP-based sentiment analysis and 
-                    predictive modeling.
+                    data workflows and turn messy data into decisions. Currently a data analyst intern in procurement
+                    analytics at PT Tangkas Cipta Optimal (TACO), while completing a research project on NLP-based sentiment
+                    analysis and predictive modeling.
                 </p>
                 <div class="cta-buttons">
                     <a href="#projects" class="btn btn-primary">View My Work</a>
@@ -834,12 +893,12 @@
                 and data-driven insight delivery to support strategic decision-making.
             </p>
             <ul class="experience-highlights">
-                <li>Evaluated vendor performance and using survey and SQPI (Supplier Quality Performance Index) methodology</li>
+                <li>Evaluated vendor performance using survey-based scoring and the SQPI (Supplier Quality Performance Index) methodology</li>
                 <li>Managed payment request tracking and analysis for procurement operations</li>
-                <li>Optimized master data quality and governance, working with datasets until thousands records</li>
+                <li>Improved master data quality and governance across datasets of up to thousands of records</li>
                 <li>Developed Google Looker dashboards for procurement analytics and monthly reporting</li>
-                <li>Conducted data extraction and transformation activities to support business intelligence</li>
-                <li>Automated recurring Data Cleaning and Filtering, reducing manual work time by 70%</li>
+                <li>Conducted data extraction and transformation to support business intelligence</li>
+                <li>Automated recurring data cleaning and filtering, cutting manual work time by 70%</li>
             </ul>
             <div class="profile-tags" style="margin-top: 1.5rem;">
                 <span class="tag">Excel</span>
@@ -856,26 +915,27 @@
     <section id="projects">
         <div class="section-header">
             <h2 class="section-title">Featured Projects</h2>
-            <p class="section-subtitle">Showcasing my best work in data science and analytics</p>
+            <p class="section-subtitle">The problem, what I did, and what I found — dashboards and code are one click deeper</p>
         </div>
 
         <div class="projects-grid">
+
             <!-- Project 1: Thesis -->
             <div class="project-card fade-in">
                 <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                     🎓
                 </div>
                 <div class="project-content">
-                    <span class="project-badge">⭐ FEATURED - Thesis Project</span>
+                    <span class="project-badge">⭐ FEATURED · Thesis Project</span>
                     <h3 class="project-title">Electronic Products E-Commerce Sentiment Analysis</h3>
-                    <p class="project-description">
-                        Deep Neural Network for sentiment classification of Electronic products reviews from Indonesian 
-                        e-commerce platforms. Includes hybrid recommendation system combining sentiment + ratings.
+                    <p class="project-problem">
+                        <span class="plabel">Problem:</span> Indonesian e-commerce reviews are informal, slang-heavy, and
+                        badly imbalanced — hard to turn into a reliable signal for product recommendations.
                     </p>
                     <div class="project-metrics">
                         <div class="metric">
                             <div class="metric-value">96.42%</div>
-                            <div class="metric-label">Accuracy</div>
+                            <div class="metric-label">Model Accuracy</div>
                         </div>
                         <div class="metric">
                             <div class="metric-value">27:1</div>
@@ -890,12 +950,17 @@
                         <span class="tech-tag">SMOTE</span>
                         <span class="tech-tag">Sastrawi</span>
                     </div>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
-                        <strong>Key Achievement:</strong> Deployment of the model to Product Sales Recommendation
-                    </p>
+                    <div class="project-finding">
+                        <span class="finding-label">Result</span>
+                        <span class="finding-text">
+                            A deep neural network with SMOTE handled a 27:1 imbalance to reach 96.42% accuracy, powering a
+                            deployed hybrid recommender that ranks products by sentiment and ratings.
+                        </span>
+                    </div>
                     <div class="project-links">
-                        <a href="https://smart-sales-recommender.streamlit.app/" class="project-link">📱 Live Demo</a>
-                        <a href="https://github.com/Salmakhaira/Product-Sales-Recommendation" class="project-link">💻 GitHub</a>
+                        <!-- TODO: once you build thesis.html, make it the primary "Read case study →" and demote these two. -->
+                        <a href="https://smart-sales-recommender.streamlit.app/" class="link-primary" target="_blank" rel="noopener">📱 Live demo</a>
+                        <a href="https://github.com/Salmakhaira/Product-Sales-Recommendation" class="link-secondary" target="_blank" rel="noopener">💻 GitHub</a>
                     </div>
                 </div>
             </div>
@@ -908,9 +973,9 @@
                 <div class="project-content">
                     <span class="project-badge">💼 Professional Work</span>
                     <h3 class="project-title">Performance Analytics Dashboard</h3>
-                    <p class="project-description">
-                        Performance analytics dashboard that tracks procurement efficiency, item movement, and process status, helping stakeholders identify bottlenecks, 
-                        improve operational effectiveness, and support strategic decisions.
+                    <p class="project-problem">
+                        <span class="plabel">Problem:</span> Procurement data lived in scattered, manual files, so
+                        bottlenecks in item movement and process status were caught far too late.
                     </p>
                     <div class="project-metrics">
                         <div class="metric">
@@ -919,7 +984,7 @@
                         </div>
                         <div class="metric">
                             <div class="metric-value">40%</div>
-                            <div class="metric-label">Time Saved</div>
+                            <div class="metric-label">Analysis Time Saved</div>
                         </div>
                     </div>
                     <div class="project-tech">
@@ -928,11 +993,16 @@
                         <span class="tech-tag">DAX</span>
                         <span class="tech-tag">ETL</span>
                     </div>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
-                        <strong>Business Impact:</strong> improved procurement efficiency, cost control, and decision accuracy, enabling faster issue resolution, better resource allocation, and stronger alignment between procurement operations and business objectives.
-                    </p>
+                    <div class="project-finding">
+                        <span class="finding-label">Result</span>
+                        <span class="finding-text">
+                            One dashboard consolidated 200K+ records into live views of efficiency and process status —
+                            cutting analysis time ~40% and surfacing bottlenecks early enough to act on.
+                        </span>
+                    </div>
                     <div class="project-links">
-                        <a href="https://datastudio.google.com/reporting/c05fdc81-bd87-4cd1-8ee5-ee697cb2c333" class="project-link">📊 View Dummy Dashboard</a>
+                        <!-- TODO: once you build taco.html, make it the primary "Read case study →" and demote this link. -->
+                        <a href="https://datastudio.google.com/reporting/c05fdc81-bd87-4cd1-8ee5-ee697cb2c333" class="link-primary" target="_blank" rel="noopener">📊 View dashboard (dummy data)</a>
                     </div>
                 </div>
             </div>
@@ -945,9 +1015,9 @@
                 <div class="project-content">
                     <span class="project-badge">📈 Data Analytics</span>
                     <h3 class="project-title">British Airways Customer Review Analysis</h3>
-                    <p class="project-description">
-                        Interactive Tableau dashboard analyzing 7+ years of customer reviews across multiple 
-                        service dimensions and geographic regions.
+                    <p class="project-problem">
+                        <span class="plabel">Problem:</span> 7+ years of passenger reviews sat unstructured — no clear
+                        view of what actually drives satisfaction, or where it breaks down.
                     </p>
                     <div class="project-metrics">
                         <div class="metric">
@@ -956,21 +1026,25 @@
                         </div>
                         <div class="metric">
                             <div class="metric-value">6</div>
-                            <div class="metric-label">Rating Categories</div>
+                            <div class="metric-label">Service Dimensions</div>
                         </div>
                     </div>
                     <div class="project-tech">
-                        <span class="tech-tag">Tableau</span>
                         <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Data Visualization</span>
+                        <span class="tech-tag">Tableau</span>
+                        <span class="tech-tag">Web Scraping</span>
                         <span class="tech-tag">Statistical Analysis</span>
                     </div>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
-                        <strong>Insights Delivered:</strong> Identified Boeing 747-400 as top-rated aircraft and 
-                        regional satisfaction patterns for strategic improvements
-                    </p>
+                    <div class="project-finding">
+                        <span class="finding-label">Key finding</span>
+                        <span class="finding-text">
+                            Across 6 service dimensions the Boeing 747-400 rated highest, and satisfaction varied sharply
+                            by region — pinpointing exactly where BA should prioritize improvements.
+                        </span>
+                    </div>
                     <div class="project-links">
-                        <a href="https://public.tableau.com/views/portofolio_projects/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" class="project-link">📊 View on Tableau</a>
+                        <a href="british-airways.html" class="link-primary">Read case study →</a>
+                        <a href="https://public.tableau.com/views/portofolio_projects/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" class="link-secondary" target="_blank" rel="noopener">📊 Dashboard</a>
                     </div>
                 </div>
             </div>
@@ -983,9 +1057,9 @@
                 <div class="project-content">
                     <span class="project-badge">🏗️ Cloud Architecture</span>
                     <h3 class="project-title">Smart Cars IoT Data Pipeline</h3>
-                    <p class="project-description">
-                        Scalable AWS architecture for processing real-time IoT data from connected vehicles, 
-                        with ML-powered analytics and OTA update capabilities.
+                    <p class="project-problem">
+                        <span class="plabel">Problem:</span> Connected vehicles stream huge volumes of real-time telemetry
+                        that must be ingested, analyzed, and acted on without falling over at scale.
                     </p>
                     <div class="project-tech">
                         <span class="tech-tag">AWS IoT Core</span>
@@ -995,15 +1069,19 @@
                         <span class="tech-tag">S3</span>
                         <span class="tech-tag">RDS</span>
                     </div>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
-                        <strong>Architecture Highlights:</strong> Real-time data processing, ML model deployment 
-                        for predictive maintenance, and secure OTA updates via Greengrass
-                    </p>
+                    <div class="project-finding">
+                        <span class="finding-label">What I built</span>
+                        <span class="finding-text">
+                            A scalable AWS pipeline (IoT Core → Kinesis → Lambda → SageMaker) for real-time processing,
+                            predictive-maintenance ML, and secure over-the-air updates via Greengrass.
+                        </span>
+                    </div>
                     <div class="project-links">
-                        <a href="https://github.com/Salmakhaira/Smart_Car_Cloud_Architecture" class="project-link">📐 View Architecture</a>
+                        <a href="https://github.com/Salmakhaira/Smart_Car_Cloud_Architecture" class="link-primary" target="_blank" rel="noopener">📐 View architecture</a>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Other Projects Section -->
@@ -1013,7 +1091,7 @@
                 <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 0.5rem; border-left: 3px solid var(--primary-color);">
                     <h4>📱 Sales Management Dashboard</h4>
                     <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
-                        Power BI dashboard for tracking sales KPIs and customer behavior
+                        Power BI dashboard tracking sales KPIs and customer behavior for faster commercial decisions
                     </p>
                     <div style="margin-top: 1rem;">
                         <span class="tech-tag">Power BI</span>
@@ -1023,7 +1101,7 @@
                 <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 0.5rem; border-left: 3px solid var(--secondary-color);">
                     <h4>🏥 Heart Failure Prediction</h4>
                     <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
-                        ML classification model for early heart failure risk detection
+                        ML classification model for early heart-failure risk detection from clinical features
                     </p>
                     <div style="margin-top: 1rem;">
                         <span class="tech-tag">Python</span>
@@ -1033,7 +1111,7 @@
                 <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 0.5rem; border-left: 3px solid var(--accent-color);">
                     <h4>🏠 House Price Prediction</h4>
                     <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
-                        Regression model for California housing price estimation
+                        Regression model estimating California housing prices from location and property features
                     </p>
                     <div style="margin-top: 1rem;">
                         <span class="tech-tag">Python</span>
@@ -1043,7 +1121,7 @@
                 <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 0.5rem; border-left: 3px solid #10b981;">
                     <h4>👥 Crowd Counting with CNN</h4>
                     <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
-                        Deep learning model for accurate crowd density estimation
+                        Deep-learning model estimating crowd density from images for public-space monitoring
                     </p>
                     <div style="margin-top: 1rem;">
                         <span class="tech-tag">TensorFlow</span>

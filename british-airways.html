@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>British Airways Customer Review Analysis — Salma Khaira Almuna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     PALETTE — ganti nilai di bawah agar cocok dengan warna situsmu.
+     Cukup ubah 6 baris ini; seluruh halaman ikut menyesuaikan.
+     ============================================================ */
+  :root{
+    --ink:#0B1B2B;        /* teks utama         */
+    --navy:#1B3A5B;       /* aksen gelap        */
+    --accent:#C8102E;     /* aksen (BA red-ish) */
+    --paper:#FBFAF7;      /* background halaman  */
+    --card:#FFFFFF;       /* kartu              */
+    --line:#E7E4DD;       /* garis tipis        */
+
+    --muted:#5C6B7A;
+    --radius:14px;
+    --maxw:920px;
+    --display:"Space Grotesk",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:inherit}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:20;
+    background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .back{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:13px;color:var(--muted);
+    text-decoration:none;transition:color .2s;
+  }
+  .back:hover{color:var(--accent)}
+  .brand{font-family:var(--display);font-weight:600;letter-spacing:.02em;font-size:15px}
+
+  /* ---------- section scaffolding ---------- */
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,48px);line-height:1.08;letter-spacing:-.02em}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,3vw,28px);letter-spacing:-.01em;margin-bottom:16px}
+  p.lead{font-size:clamp(17px,2vw,20px);color:var(--navy);max-width:62ch;margin-top:18px}
+  p{max-width:66ch}
+  p + p{margin-top:14px}
+
+  /* ---------- hero / boarding pass ---------- */
+  .hero{padding-top:44px;padding-bottom:0;border-bottom:none}
+  .kicker{font-family:var(--mono);font-size:13px;color:var(--muted);margin-bottom:8px}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:28px;margin-top:26px;
+    font-size:14px;
+  }
+  .meta div span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .meta div strong{font-weight:500}
+
+  .pass{
+    margin-top:40px;
+    background:var(--navy);color:#fff;
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:grid;grid-template-columns:1fr auto;
+    box-shadow:0 18px 40px -24px rgba(11,27,43,.5);
+  }
+  .pass-main{padding:26px 30px;display:flex;flex-wrap:wrap;gap:34px;align-items:center}
+  .route{display:flex;align-items:center;gap:14px;font-family:var(--display)}
+  .route b{font-size:26px;font-weight:600;letter-spacing:.04em}
+  .route .plane{opacity:.75}
+  .pass-stat span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.65}
+  .pass-stat b{font-family:var(--display);font-size:24px;font-weight:600}
+  .pass-stub{
+    background:var(--accent);color:#fff;
+    padding:26px 22px;display:flex;flex-direction:column;justify-content:center;gap:4px;
+    position:relative;min-width:130px;
+    border-left:2px dashed rgba(255,255,255,.5);
+  }
+  .pass-stub span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+  .pass-stub b{font-family:var(--display);font-size:15px;font-weight:600;line-height:1.3}
+
+  /* ---------- objective callout ---------- */
+  .callout{
+    border-left:3px solid var(--accent);
+    background:var(--card);
+    padding:20px 24px;border-radius:0 var(--radius) var(--radius) 0;
+    font-size:17px;color:var(--navy);max-width:66ch;
+  }
+
+  /* ---------- approach steps ---------- */
+  .steps{display:grid;gap:14px;margin-top:8px}
+  .step{
+    display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:start;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px 20px;
+  }
+  .step .num{
+    font-family:var(--mono);font-size:13px;color:#fff;background:var(--navy);
+    width:32px;height:32px;border-radius:8px;display:grid;place-items:center;
+  }
+  .step h3{font-family:var(--display);font-size:16px;font-weight:600;margin-bottom:4px}
+  .step p{font-size:14.5px;color:var(--muted);margin:0}
+
+  /* ---------- findings ---------- */
+  .find-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:8px}
+  .find{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .find .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .find b{font-family:var(--display);font-size:20px;font-weight:600;display:block;margin-bottom:6px}
+  .find p{font-size:14px;color:var(--muted);margin:0}
+
+  /* dimension bars */
+  .dims{margin-top:34px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px}
+  .dims h3{font-family:var(--display);font-size:16px;font-weight:600;margin-bottom:4px}
+  .dims-note{font-size:12.5px;color:var(--muted);margin-bottom:20px}
+  .bar{display:grid;grid-template-columns:150px 1fr 46px;align-items:center;gap:14px;margin-bottom:12px}
+  .bar span{font-size:13.5px}
+  .bar .track{height:9px;background:var(--line);border-radius:6px;overflow:hidden}
+  .bar .fill{height:100%;background:var(--navy);border-radius:6px}
+  .bar .val{font-family:var(--mono);font-size:13px;text-align:right;color:var(--muted)}
+
+  /* editable placeholder marker */
+  .todo{
+    background:#FFF3C4;color:#7A5B00;border-radius:4px;padding:0 5px;
+    font-weight:500;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  }
+
+  /* ---------- impact ---------- */
+  .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:24px}
+  .impact-grid .num{font-family:var(--display);font-size:34px;font-weight:700;color:var(--accent);line-height:1}
+  .impact-grid .lab{font-size:13.5px;color:var(--muted);margin-top:6px}
+
+  /* ---------- CTA ---------- */
+  .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--display);font-weight:500;font-size:15px;
+    padding:13px 22px;border-radius:10px;text-decoration:none;transition:transform .15s,box-shadow .2s;
+  }
+  .btn.primary{background:var(--accent);color:#fff;box-shadow:0 10px 22px -12px var(--accent)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.ghost:hover{border-color:var(--navy)}
+
+  /* ---------- next project ---------- */
+  .pager{padding:40px 0;border-bottom:none}
+  .pager a{
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 26px;text-decoration:none;transition:border-color .2s,transform .15s;
+  }
+  .pager a:hover{border-color:var(--navy);transform:translateY(-2px)}
+  .pager span{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .pager b{font-family:var(--display);font-size:18px;font-weight:600;display:block;margin-top:4px}
+
+  footer{padding:34px 0;text-align:center;color:var(--muted);font-size:13px}
+
+  /* ---------- entrance motion ---------- */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .btn:hover,.pager a:hover{transform:none}
+  }
+
+  @media(max-width:640px){
+    .pass{grid-template-columns:1fr}
+    .pass-stub{border-left:none;border-top:2px dashed rgba(255,255,255,.5)}
+    .bar{grid-template-columns:120px 1fr 40px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="back" href="index.html#projects">&larr; Back to projects</a>
+    <span class="brand">Salma Khaira Almuna</span>
+  </div>
+</div>
+
+<!-- ============ HERO / OVERVIEW ============ -->
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker reveal">Case study &middot; Data analytics</p>
+    <h1 class="reveal">British Airways<br>Customer Review Analysis</h1>
+    <p class="lead reveal">Turning 7+ years of scattered, unstructured passenger reviews into a single interactive dashboard that shows British Airways where to improve — by service dimension, aircraft, and region.</p>
+
+    <div class="meta reveal">
+      <div><span>Role</span><strong>Data analyst (self-directed)</strong></div>
+      <div><span>Tools</span><strong>Python &middot; Tableau</strong></div>
+      <div><span>Focus</span><strong>Web scraping &middot; EDA &middot; Data viz</strong></div>
+      <div><span>Context</span><strong>British Airways forage simulation</strong></div>
+    </div>
+
+    <div class="pass reveal">
+      <div class="pass-main">
+        <div class="route">
+          <b>REV</b>
+          <span class="plane">&#9992;</span>
+          <b>BA</b>
+        </div>
+        <div class="pass-stat"><span>Data period</span><b>7+ years</b></div>
+        <div class="pass-stat"><span>Rating categories</span><b>6</b></div>
+        <div class="pass-stat"><span>Reviews analysed</span><b><span class="todo">1,000+</span></b></div>
+      </div>
+      <div class="pass-stub">
+        <span>Deliverable</span>
+        <b>Interactive Tableau dashboard</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section>
+  <div class="wrap reveal">
+    <p class="eyebrow">Problem</p>
+    <h2>Thousands of opinions, no single view</h2>
+    <p>Airlines live and die by customer perception, but the raw signal is messy. British Airways passengers leave detailed public reviews spanning many years, each scoring the airline across several service dimensions and written as free-form text.</p>
+    <p>In that raw form the feedback is almost impossible to act on: there is no easy way to see which parts of the experience consistently disappoint, whether satisfaction differs by aircraft or route, or how sentiment has shifted over time. The insight exists — it is just locked inside unstructured data.</p>
+  </div>
+</section>
+
+<!-- ============ OBJECTIVE ============ -->
+<section>
+  <div class="wrap reveal">
+    <p class="eyebrow">Objective</p>
+    <h2>The question to answer</h2>
+    <div class="callout">Consolidate years of customer reviews into one analysis that pinpoints <strong>which service dimensions drive satisfaction</strong>, how sentiment varies <strong>by aircraft and region</strong>, and where BA should focus improvement — presented so a non-technical stakeholder can explore it themselves.</div>
+  </div>
+</section>
+
+<!-- ============ DATA & APPROACH ============ -->
+<section>
+  <div class="wrap reveal">
+    <p class="eyebrow">Data &amp; approach</p>
+    <h2>From raw web pages to a decision tool</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <div>
+          <h3>Collect</h3>
+          <p>Scraped <span class="todo">1,000+</span> public customer reviews covering 7+ years using Python (requests &amp; BeautifulSoup), capturing both the written review and its structured star ratings.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <div>
+          <h3>Clean &amp; structure</h3>
+          <p>Parsed each review into a tidy dataset — separating the six rating dimensions, standardising dates, and extracting fields like aircraft type, traveller type, and route for segmentation.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <div>
+          <h3>Analyse</h3>
+          <p>Ran exploratory and statistical analysis to compare average scores across dimensions, aircraft, regions, and time, and to find where ratings cluster high or low.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">04</div>
+        <div>
+          <h3>Visualise</h3>
+          <p>Built an interactive Tableau dashboard with filters so stakeholders can slice satisfaction by dimension, aircraft, and region without touching the underlying data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINDINGS ============ -->
+<section>
+  <div class="wrap reveal">
+    <p class="eyebrow">Findings</p>
+    <h2>What the reviews revealed</h2>
+
+    <div class="find-grid">
+      <div class="find">
+        <div class="tag">Top aircraft</div>
+        <b>Boeing 747-400</b>
+        <p>Rated the highest of all aircraft in the dataset — a clear passenger preference worth protecting in fleet and cabin decisions.</p>
+      </div>
+      <div class="find">
+        <div class="tag">Regional pattern</div>
+        <b>Satisfaction varies by region</b>
+        <p>Ratings differed meaningfully across geographic regions, pointing to route- and market-specific experience gaps.</p>
+      </div>
+      <div class="find">
+        <div class="tag">Weakest dimension</div>
+        <b><span class="todo">Ganti: dimensi skor terendah</span></b>
+        <p><span class="todo">Tulis 1 kalimat temuanmu — dimensi mana yang paling sering dikeluhkan &amp; dampaknya.</span></p>
+      </div>
+    </div>
+
+    <div class="dims">
+      <h3>Average rating by service dimension</h3>
+      <p class="dims-note"><span class="todo">Ganti angka di bawah dengan rata-rata asli dari analisismu (skala 1&ndash;5). Bar akan otomatis menyesuaikan lebar.</span></p>
+
+      <div class="bar"><span>Cabin staff service</span><div class="track"><div class="fill" style="width:82%"></div></div><div class="val">4.1</div></div>
+      <div class="bar"><span>Seat comfort</span><div class="track"><div class="fill" style="width:70%"></div></div><div class="val">3.5</div></div>
+      <div class="bar"><span>Food &amp; beverages</span><div class="track"><div class="fill" style="width:64%"></div></div><div class="val">3.2</div></div>
+      <div class="bar"><span>Ground service</span><div class="track"><div class="fill" style="width:60%"></div></div><div class="val">3.0</div></div>
+      <div class="bar"><span>Inflight entertainment</span><div class="track"><div class="fill" style="width:54%"></div></div><div class="val">2.7</div></div>
+      <div class="bar"><span>Value for money</span><div class="track"><div class="fill" style="width:50%"></div></div><div class="val">2.5</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT ============ -->
+<section>
+  <div class="wrap reveal">
+    <p class="eyebrow">Impact</p>
+    <h2>Why it matters</h2>
+    <p>The dashboard turns years of scattered feedback into a self-serve tool a product or service team can open and immediately see where to act — no analyst required in the loop. It replaces anecdote (“some passengers complain about X”) with evidence ranked by dimension, aircraft, and region.</p>
+
+    <div class="impact-grid">
+      <div><div class="num">7+</div><div class="lab">Years of feedback consolidated</div></div>
+      <div><div class="num">6</div><div class="lab">Service dimensions compared side by side</div></div>
+      <div><div class="num">1</div><div class="lab">Self-serve dashboard for stakeholders</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIVE ARTIFACT ============ -->
+<section>
+  <div class="wrap reveal">
+    <p class="eyebrow">See it live</p>
+    <h2>Explore the dashboard</h2>
+    <p>The interactive version lets you filter satisfaction by dimension, aircraft, and region and read the underlying reviews behind each score.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://public.tableau.com/views/portofolio_projects/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">&#128202; View on Tableau</a>
+      <a class="btn ghost" href="https://github.com/Salmakhaira" target="_blank" rel="noopener">&#128187; Code on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEXT PROJECT ============ -->
+<div class="pager wrap">
+  <a href="index.html#projects">
+    <div><span>Next project</span><b>Performance Analytics Dashboard &rarr;</b></div>
+    <span>&rarr;</span>
+  </a>
+</div>
+
+<footer>&copy; 2025 Salma Khaira Almuna &middot; Jakarta, Indonesia</footer>
+
+<script>
+  // gentle staggered reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay=(Math.min(i,4)*60)+'ms';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
